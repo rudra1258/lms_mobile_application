@@ -1,125 +1,209 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'forgot_password_screen.dart';
 
-class login_screen extends StatefulWidget {
-  const login_screen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<login_screen> createState() => _login_screenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _login_screenState extends State<login_screen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
+  bool rememberMe = false;
+  late AnimationController _controller;
+
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Animation controller
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+
+    // Slide animation
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(
+          CurvedAnimation(parent: _controller, curve: Curves.easeOut),
+        );
+
+    // Start animation when page loads
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Stack(
         children: [
-          Image.asset("assets/img/ppookjsid.jpg",
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+          // Background Gradient
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image:AssetImage('assets/img/ppookjsid.jpg'),
+                fit: BoxFit.cover,
+              )
+            ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
+
+          // White Card with Slide Animation
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SlideTransition(
+              position: _slideAnimation,
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.8,
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                child: SingleChildScrollView(
                   child: Column(
-                    spacing: 5,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Welcome Back !",
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Welcome back",
                         style: TextStyle(
-                          letterSpacing: 1.3,
-                          color: Colors.white,
-                          fontSize: width * 0.1,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Sen",
+                          color: Colors.blue,
                         ),
                       ),
-                      Text("Enter Personal Details To Your\nStudent Account",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          letterSpacing: 1.3,
-                          color: Colors.white,
-                          fontSize: width * 0.036,
-                          // fontSize: 12,
-                          // fontWeight: FontWeight.bold,
-                          fontFamily: "Delius",
+                      const SizedBox(height: 30),
+
+                      // Email Field
+                      TextField(
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          hintText: "kristin.watson@example.com",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 20),
+
+                      // Password Field
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
+                      // Remember me + Forgot password
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: rememberMe,
+                                onChanged: (value) {
+                                  setState(() {
+                                    rememberMe = value!;
+                                  });
+                                },
+                              ),
+                              const Text("Remember me"),
+                            ],
+                          ),
+
+                          TextButton(
+
+                            onPressed: () {
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => forgot_password(),));
+                            },
+                            child: const Text(
+                              "Forgot password?",
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Sign in button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "Sign in",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      // Sign in with
+                      const Text("Sign in with"),
+                      const SizedBox(height: 15),
+
+                      // Sign up
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _socialImage('assets/img/google png.png'),
+                          const SizedBox(width: 20),
+                        ],
+                      )
                     ],
                   ),
+                ),
               ),
-
-              Row(
-                spacing: 15,
-                children: [
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                      ),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0), // Adjust blur intensity
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent, // Semi-transparent background for frosted effect
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                            elevation: 0, // Remove shadow for cleaner look
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
-                            child: Text(
-                              "Sign In",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: width * 0.045,
-                                // fontWeight: FontWeight.bold,
-                                fontFamily: "Sen",
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                        onPressed: (){},
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                            ), // Set desired border radius
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: Text("Sign Up",
-                            style: TextStyle(
-                              color: Colors.blue[900],
-                              fontSize: width * 0.045,
-                              // fontWeight: FontWeight.bold,
-                              fontFamily: "Sen",
-                            ),
-                          ),
-                        )
-                    ),
-                  ),
-                ],
-              )
-            ],
-          )
+            ),
+          ),
         ],
       ),
     );
   }
+}
+Widget _socialImage(String assetPath) {
+  return Container(
+    height: 35,
+    width: 35,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+    ),
+    child: ClipOval(
+      child: Image.asset(assetPath,fit: BoxFit.cover),
+    ),
+  );
 }

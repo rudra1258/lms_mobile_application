@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'authentication/login_screen.dart';
+import 'authentication/welcome_screen.dart';
 
 class splash_screen extends StatefulWidget {
   const splash_screen({super.key});
@@ -31,7 +31,10 @@ class _splash_screenState extends State<splash_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset("assets/img/learning-management-system-removebg-preview.png"),
+        child: Container(
+            height: 300,
+            width: 300,
+            child: Image.asset("assets/img/Picsart_25-08-22_11-12-49-231.png")),
       ),
     );
   }
