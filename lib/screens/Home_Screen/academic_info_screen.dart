@@ -46,22 +46,23 @@ class _academic_info_screenState extends State<academic_info_screen>
        toolbarHeight: 80,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        centerTitle: true,
+
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
-          labelColor: Colors.green,
+          labelColor: Colors.blue[800],
           unselectedLabelColor: Colors.black54,
           indicatorSize: TabBarIndicatorSize.tab,
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           indicator: BoxDecoration(
             color: Colors.blue.shade100,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.4),
-                blurRadius: 8,
+                blurRadius: 2,
                 spreadRadius: 1,
-                offset: const Offset(0, 9),
+                offset: const Offset(1, 2),
               ),
             ],
           ),
