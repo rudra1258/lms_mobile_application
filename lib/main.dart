@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lms_app/screens/bottom_navigation.dart';
 import 'package:lms_app/screens/splash_screen.dart';
+import 'package:lms_app/screens/bottom_navigation.dart';
 
 void main() {
   runApp(const MyApp());

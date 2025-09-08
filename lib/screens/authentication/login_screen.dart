@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lms_app/screens/Home_Screen/home_screen.dart';
+import 'package:lms_app/values/value.dart';
+import '../bottom_navigation.dart';
 import 'forgot_password_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class loginscreen extends StatefulWidget {
+  const loginscreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<loginscreen> createState() => _loginscreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
+class _loginscreenState extends State<loginscreen>
     with SingleTickerProviderStateMixin {
   bool rememberMe = false;
   late AnimationController _controller;
@@ -163,7 +166,12 @@ class _LoginScreenState extends State<LoginScreen>
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              isLoggedIn = true;
+                            });
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>   bottom_navigation_screen()),);
+                          },
                           child: const Text(
                             "Sign in",
                             style: TextStyle(fontSize: 18, color: Colors.white),
@@ -178,6 +186,7 @@ class _LoginScreenState extends State<LoginScreen>
 
                       // Sign up
                       Row(
+
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _socialImage('assets/img/google png.png'),

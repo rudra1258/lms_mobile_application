@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lms_app/values/value.dart';
 
 import 'authentication/welcome_screen.dart';
 
@@ -20,10 +21,9 @@ class _splash_screenState extends State<splash_screen> {
     super.initState();
     // Delay splash for 3 seconds then navigate
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) =>  login_screen()),
-      );
+      if(isLoggedIn == null){
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => login_screen(),));
+      }
     });
   }
 

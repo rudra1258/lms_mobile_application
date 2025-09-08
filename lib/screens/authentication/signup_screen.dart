@@ -34,10 +34,10 @@ class _SignUpScreenState extends State<SignUpScreen>
     _controller.forward(); // 👈 run animation on screen load
   }
 
-  void _refreshAnimation() {
-    _controller.reset();
-    _controller.forward();
-  }
+  // void _refreshAnimation() {
+  //   _controller.reset();
+  //   _controller.forward();
+  // }
 
   @override
   void dispose() {
@@ -57,10 +57,10 @@ class _SignUpScreenState extends State<SignUpScreen>
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh, color: Colors.white),
-            onPressed: _refreshAnimation, // 👈 replay animation
-          )
+          // IconButton(
+          //   icon: const Icon(Icons.refresh, color: Colors.white),
+          //   onPressed: _refreshAnimation, // 👈 replay animation
+          // )
         ],
       ),
       body: Stack(
