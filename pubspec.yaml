@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   font_awesome_flutter: ^10.9.1
   video_player: ^2.10.0
+  horizontal_week_calendar: ^0.0.20
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
   assets:
     - assets/img/
     - assets/videos/
+    - assets/img/daily_class/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
