@@ -81,7 +81,7 @@ class _alert_screenState extends State<alert_screen> {
                       },
                       child: Card(
                         child: ListTile(
-                          leading: const Icon(Icons.notifications),
+                          leading:  Icon(Icons.notifications, color: Colors.orange[700],),
                           title: Text(notifications[index]),
                         ),
                       ),

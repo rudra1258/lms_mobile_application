@@ -4,6 +4,10 @@ import 'package:lms_app/screens/Home_Screen/assignments_screen.dart';
 import 'package:lms_app/screens/Home_Screen/daily_class_screen.dart';
 import 'package:lms_app/screens/Home_Screen/library_screen.dart';
 import 'package:lms_app/screens/Home_Screen/manage_leaves_screen.dart';
+import 'package:lms_app/screens/Home_Screen/new_academic_info_screen.dart';
+import 'package:lms_app/screens/Home_Screen/new_library_screen.dart';
+import 'package:lms_app/screens/Home_Screen/new_syllabus_screen.dart';
+import 'package:lms_app/screens/Home_Screen/notice_and_event_screen.dart';
 import 'package:lms_app/screens/Home_Screen/syllabus_screen.dart';
 
 class home_screen extends StatelessWidget {
@@ -87,7 +91,7 @@ class home_screen extends StatelessWidget {
                           title: "Academic Info",
                           icon: Icons.school,
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => academic_info_screen(),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => new_academic_info_screen(),));
                           },
                         ),
                         _DashboardCard(
@@ -108,7 +112,7 @@ class home_screen extends StatelessWidget {
                           title: "Library",
                           icon: Icons.book,
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => library_screen(),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => new_library_screen(),));
                           },
                         ),
                         _DashboardCard(
@@ -116,8 +120,16 @@ class home_screen extends StatelessWidget {
                           icon: Icons.route,
                           fullWidth: true,
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => syllabus_screen(),)
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => new_syllabus_screen(),)
                             );
+                          },
+                        ),
+                        _DashboardCard(
+                          title: "Notice & Events",
+                          icon: Icons.campaign,
+                          fullWidth: true,
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => notice_and_event_screen(),));
                           },
                         ),
                         // _DashboardCard(
@@ -217,7 +229,7 @@ class _DashboardCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 30, color: Colors.blue),
+            Icon(icon, size: 30, color: Colors.orangeAccent),
             const SizedBox(height: 15),
             Text(
               title,

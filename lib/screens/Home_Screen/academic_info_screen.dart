@@ -11,6 +11,10 @@ class _academic_info_screenState extends State<academic_info_screen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  bool isCourse = true;
+  bool isResult = false;
+  bool isExam = false;
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +30,7 @@ class _academic_info_screenState extends State<academic_info_screen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true, // ✅ Background behind AppBar
+      // extendBodyBehindAppBar: true, // ✅ Background behind AppBar
       appBar: AppBar(
         title: const Text.rich(
           TextSpan(
@@ -36,46 +40,113 @@ class _academic_info_screenState extends State<academic_info_screen>
               TextSpan(
                 text: "Information",
                 style: TextStyle(
-                  color: Colors.blue,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
         ),
-       toolbarHeight: 80,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+       // toolbarHeight: 80,
+        backgroundColor: Colors.orange[100],
+        // elevation: 0,
+        actionsPadding: EdgeInsets.only(right: 20),
+        // actions: [
+        //   IconButton(
+        //     onPressed: (){
+        //       Navigator.pop(context);
+        //     },
+        //     icon: Icon(Icons.arrow_forward_ios_sharp),
+        //   )
+        // ],
 
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
-          labelColor: Colors.blue[800],
-          unselectedLabelColor: Colors.black54,
-          indicatorSize: TabBarIndicatorSize.tab,
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          indicator: BoxDecoration(
-            color: Colors.blue.shade100,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.4),
-                blurRadius: 2,
-                spreadRadius: 1,
-                offset: const Offset(1, 2),
+        // bottom: TabBar(
+        //   controller: _tabController,
+        //   isScrollable: true,
+        //   labelColor: Colors.blue[800],
+        //   unselectedLabelColor: Colors.black54,
+        //   indicatorSize: TabBarIndicatorSize.tab,
+        //   indicatorAnimation: TabIndicatorAnimation.elastic,
+        //   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        //   indicator: BoxDecoration(
+        //     color: Colors.blue.shade100,
+        //     borderRadius: BorderRadius.circular(12),
+        //     boxShadow: [
+        //       BoxShadow(
+        //         color: Colors.black.withOpacity(0.4),
+        //         blurRadius: 2,
+        //         spreadRadius: 1,
+        //         offset: const Offset(1, 2),
+        //       ),
+        //     ],
+        //   ),
+        //   tabs: const [
+        //     Tab(text: "Student Info"),
+        //     Tab(text: "Courses"),
+        //     Tab(text: "Attendance"),
+        //     Tab(text: "Results"),
+        //     Tab(text: "Exams"),
+        //   ],
+        // ),
+      ),
+
+      endDrawerEnableOpenDragGesture: true,
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.orange[100]
               ),
-            ],
-          ),
-          tabs: const [
-            Tab(text: "Student Info"),
-            Tab(text: "Courses"),
-            Tab(text: "Attendance"),
-            Tab(text: "Results"),
-            Tab(text: "Exams"),
+                child: Text("Academic Information",
+                  textAlign: TextAlign.center,
+                ),
+            ),
+
+            ListTile(
+              leading: Icon(Icons.school, color: Colors.orange[900],),
+              trailing: Icon(Icons.arrow_forward_ios_sharp, color: Colors.grey[700],),
+              title: Text("Courses"),
+              onTap: (){
+                setState(() {
+                  isResult = false;
+                  isCourse = true;
+                  isExam = false;
+                });
+                Navigator.pop(context);
+              },
+            ),
+
+            ListTile(
+              leading: Icon(Icons.insert_chart_outlined, color: Colors.orange[900],),
+              trailing: Icon(Icons.arrow_forward_ios_sharp, color: Colors.grey[700],),
+              title: Text("Results"),
+              onTap: (){
+                setState(() {
+                  isResult = true;
+                  isCourse = false;
+                  isExam = false;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.edit_note, color: Colors.orange[900],),
+              trailing: Icon(Icons.arrow_forward_ios_rounded, color: Colors.grey[700],),
+              title: Text("Exam"),
+              onTap: (){
+                setState(() {
+                  isResult = false;
+                  isCourse = false;
+                  isExam = true;
+                });
+                Navigator.pop(context);
+              },
+            ),
+
           ],
         ),
       ),
-
       body: Stack(
         children: [
           // ✅ Background image with opacity
@@ -90,42 +161,59 @@ class _academic_info_screenState extends State<academic_info_screen>
           ),
           // ✅ Tab Views with padding to avoid overlap
           Padding(
-            padding: const EdgeInsets.only(top: 120), // 👈 shifts below AppBar+Tabs
-            child: TabBarView(
-              controller: _tabController,
-              physics: const PageScrollPhysics(),
-              children: [
-                _buildTileGrid([
-                  {"title": "Name", "value": "Rudra Prasad"},
-                  {"title": "Roll Number", "value": "CSE2023-045"},
-                  {"title": "Program", "value": "B.Tech CSE"},
-                  {"title": "Semester", "value": "5th"},
-                ]),
-                _buildTileGrid([
-                  {"title": "CS501", "value": "DBMS"},
-                  {"title": "CS502", "value": "Operating Systems"},
-                  {"title": "CS503", "value": "Computer Networks"},
-                  {"title": "CS504", "value": "Software Engineering"},
-                ]),
-                _buildTileGrid([
-                  {"title": "DBMS", "value": "85%"},
-                  {"title": "OS", "value": "92%"},
-                  {"title": "Networks", "value": "78%"},
-                  {"title": "Software Engg", "value": "88%"},
-                ]),
-                _buildTileGrid([
-                  {"title": "DBMS", "value": "A"},
-                  {"title": "OS", "value": "B+"},
-                  {"title": "Networks", "value": "A"},
-                  {"title": "Software Engg", "value": "A+"},
-                  {"title": "CGPA", "value": "8.5"},
-                ]),
-                _buildTileGrid([
-                  {"title": "Mid Term", "value": "10th Sept 2025"},
-                  {"title": "Lab Practical", "value": "18th Sept 2025"},
-                  {"title": "End Term", "value": "1st Dec 2025"},
-                ]),
-              ],
+            padding: const EdgeInsets.only(top: 0), // 👈 shifts below AppBar+Tabs
+            child: SingleChildScrollView(
+              child: Column(
+                // controller: _tabController,
+                // physics: const PageScrollPhysics(),
+                children: [
+                  Visibility(
+                    visible: false,
+                    child: _buildTileGrid([
+                      {"title": "Name", "value": "Rudra Prasad"},
+                      {"title": "Roll Number", "value": "CSE2023-045"},
+                      {"title": "Program", "value": "B.Tech CSE"},
+                      {"title": "Semester", "value": "5th"},
+                    ]),
+                  ),
+                  Visibility(
+                    visible: isCourse,
+                    child: _buildTileGrid([
+                      {"title": "CS501", "value": "DBMS"},
+                      {"title": "CS502", "value": "Operating Systems"},
+                      {"title": "CS503", "value": "Computer Networks"},
+                      {"title": "CS504", "value": "Software Engineering"},
+                    ]),
+                  ),
+                  Visibility(
+                    visible: false,
+                    child: _buildTileGrid([
+                      {"title": "DBMS", "value": "85%"},
+                      {"title": "OS", "value": "92%"},
+                      {"title": "Networks", "value": "78%"},
+                      {"title": "Software Engg", "value": "88%"},
+                    ]),
+                  ),
+                  Visibility(
+                    visible: isResult,
+                    child: _buildTileGrid([
+                      {"title": "DBMS", "value": "A"},
+                      {"title": "OS", "value": "B+"},
+                      {"title": "Networks", "value": "A"},
+                      {"title": "Software Engg", "value": "A+"},
+                      {"title": "CGPA", "value": "8.5"},
+                    ]),
+                  ),
+                  Visibility(
+                    visible: isExam,
+                    child: _buildTileGrid([
+                      {"title": "Mid Term", "value": "10th Sept 2025"},
+                      {"title": "Lab Practical", "value": "18th Sept 2025"},
+                      {"title": "End Term", "value": "1st Dec 2025"},
+                    ]),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -136,6 +224,8 @@ class _academic_info_screenState extends State<academic_info_screen>
   // ✅ Helper function for Tile/Grid style
   Widget _buildTileGrid(List<Map<String, String>> items) {
     return GridView.builder(
+      shrinkWrap: true, // 🔑 lets GridView size itself based on children
+      physics: const NeverScrollableScrollPhysics(), // prevents scroll conflict
       padding: const EdgeInsets.all(26),
       itemCount: items.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -147,7 +237,7 @@ class _academic_info_screenState extends State<academic_info_screen>
       itemBuilder: (context, index) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.blue.shade400.withOpacity(0.85), // ✅ Transparency for background visibility
+            color: Colors.orange.shade400.withOpacity(0.85), // ✅ Transparency for background visibility
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
