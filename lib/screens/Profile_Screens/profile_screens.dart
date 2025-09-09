@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../authentication/welcome_screen.dart';
+
 class profile_screen extends StatefulWidget {
   const profile_screen({super.key});
 
@@ -11,11 +13,6 @@ class _profile_screenState extends State<profile_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   automaticallyImplyLeading: false,
-      //   elevation: 0,
-      // ),
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
@@ -62,7 +59,6 @@ class _profile_screenState extends State<profile_screen> {
                 const SizedBox(height: 30),
 
                 // ---- Personal Information ----
-                
                 _InfoTile(
                     icon: Icons.email,
                     label: "Email",
@@ -79,7 +75,6 @@ class _profile_screenState extends State<profile_screen> {
                     icon: Icons.home,
                     label: "Address",
                     value: "Bhubaneswar, Odisha"),
-
                 _InfoTile(
                     icon: Icons.person,
                     label: "Personal Information",
@@ -88,6 +83,24 @@ class _profile_screenState extends State<profile_screen> {
                     icon: Icons.help,
                     label: "Help Center",
                     value: "Get Support"),
+                _InfoTile(
+                    icon: Icons.privacy_tip_outlined,
+                    label: "Privacy Policy",
+                    value: "Trust Safety"),
+
+                // ✅ Logout with navigation
+                _InfoTile(
+                  icon: Icons.logout,
+                  label: "Logout",
+                  value: "",
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const login_screen()),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -128,11 +141,13 @@ class _InfoTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
+  final VoidCallback? onTap; // ✅ added onTap
 
   const _InfoTile({
     required this.icon,
     required this.label,
     required this.value,
+    this.onTap,
   });
 
   @override
@@ -147,9 +162,27 @@ class _InfoTile extends StatelessWidget {
         subtitle: Text(value),
         trailing:
         const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-        onTap: () {
-          // TODO: Add navigation to edit or help center pages
-        },
+        onTap: onTap, // ✅ now uses custom onTap
+      ),
+    );
+  }
+}
+
+// ---------------- SAMPLE LOGOUT SCREEN ----------------
+class LogoutScreen extends StatelessWidget {
+  const LogoutScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Logout")),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context); // back to profile screen
+          },
+          child: const Text("You are logged out! Go Back"),
+        ),
       ),
     );
   }

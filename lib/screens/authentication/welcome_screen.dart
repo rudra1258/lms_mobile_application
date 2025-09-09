@@ -12,30 +12,30 @@ class login_screen extends StatefulWidget {
 }
 
 class _login_screenState extends State<login_screen> {
-  late VideoPlayerController _controller;
+  // late VideoPlayerController _controller;
   String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/videos/welcome_video.mp4')
-      ..initialize().then((_) {
-        setState(() {}); // Update UI when video is initialized
-        _controller.play();
-        _controller.setLooping(true);
-      }).catchError((error) {
-        setState(() {
-          _errorMessage = error.toString();
-          print('Video initialization error: $error');
-        });
-      });
+    // _controller = VideoPlayerController.asset('assets/videos/welcome_video.mp4')
+    //   ..initialize().then((_) {
+    //     setState(() {}); // Update UI when video is initialized
+    //     _controller.play();
+    //     _controller.setLooping(true);
+    //   }).catchError((error) {
+    //     setState(() {
+    //       _errorMessage = error.toString();
+    //        print('Video initialization error: $error');
+    //     });
+    //   });
   }
 
-  @override
-  void dispose() {
-    _controller.dispose(); // Dispose of the controller to free resources
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _controller.dispose(); // Dispose of the controller to free resources
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +45,14 @@ class _login_screenState extends State<login_screen> {
       body: Stack(
         children: [
           // Video background
-          AspectRatio(
-            aspectRatio: 9.0/20.0,
-            child: VideoPlayer(_controller),
-          ),
+          // AspectRatio(
+          //   aspectRatio: 9.0/20.0,
+          //   child: VideoPlayer(_controller),
+          // ),
 
           // Semi-transparent overlay
           Container(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withOpacity(0.5),
           ),
 
           // Foreground content
