@@ -84,7 +84,7 @@ class _daily_class_screenState extends State<daily_class_screen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // space below AppBar
-              SizedBox(height: kToolbarHeight + 20),
+              SizedBox(height: kToolbarHeight + 50),
 
               HorizontalWeekCalendar(
                 borderRadius: BorderRadius.circular(10),

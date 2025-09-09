@@ -1,22 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Academic Info',
-//       theme: ThemeData(
-//         primarySwatch: Colors.indigo,
-//       ),
-//       home: AcademicHomePage(),
-//       debugShowCheckedModeBanner: false,
-//     );
-//   }
-// }
+
 
 class new_academic_info_screen extends StatefulWidget {
   @override
@@ -373,15 +358,18 @@ class CoursesPage extends StatelessWidget {
 
 // Results Page
 class ResultsPage extends StatelessWidget {
-  // Future<void> _openResultsWebsite() async {
-  //   const url = 'https://www.chseodisha.nic.in/'; // Odisha Board Results Website
-  //   if (await canLaunchUrl(Uri.parse(url))) {
-  //     await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-  //   } else {
-  //     // Handle error - could show a snackbar or dialog
-  //     print('Could not launch $url');
-  //   }
-  // }
+
+  Future<void> _openResultsWebsite() async {
+    final url = Uri.parse('https://www.samsodisha.gov.in');
+    try {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    } catch (e) {
+      print('Error launching URL: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -440,7 +428,7 @@ class ResultsPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: _openResultsWebsite,
                 icon: Icon(Icons.web),
                 label: Text('View Official Results Online'),
                 style: ElevatedButton.styleFrom(
