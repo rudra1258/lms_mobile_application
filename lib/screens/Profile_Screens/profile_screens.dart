@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 import '../authentication/welcome_screen.dart';
 
@@ -10,6 +12,94 @@ class profile_screen extends StatefulWidget {
 }
 
 class _profile_screenState extends State<profile_screen> {
+  // Editable fields
+  String email = "rudra@example.com";
+  String phone = "+91 9876543210";
+  String address = "Bhubaneswar, Odisha";
+
+  // Profile picture
+  File? _profileImage;
+
+  final ImagePicker _picker = ImagePicker();
+
+  // Function to pick image
+  Future<void> _pickImage() async {
+    final pickedFile =
+    await _picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
+
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
+  }
+
+  // Function to edit field
+  void _editField(String title, String currentValue, Function(String) onSave) {
+    TextEditingController controller =
+    TextEditingController(text: currentValue);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Edit $title"),
+        content: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            labelText: title,
+            prefixIcon: title == "Email"
+                ? const Icon(Icons.email)
+                : title == "Phone"
+                ? const Icon(Icons.phone)
+                : const Icon(Icons.home),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                onSave(controller.text);
+              });
+              Navigator.pop(context);
+            },
+            child: const Text("Save"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Function to show logout confirmation
+  void _confirmLogout() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Confirm Logout"),
+        content: const Text("Are you sure you want to logout?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context), // cancel
+            child: const Text("Cancel"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context); // close dialog
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const login_screen()),
+              );
+            },
+            child: const Text("Logout"),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,21 +125,41 @@ class _profile_screenState extends State<profile_screen> {
                 // ---- Profile Header ----
                 Center(
                   child: Column(
-                    children: const [
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage: AssetImage(
-                            "assets/img/47115f390c01d9a90d4c76c8b34f8064.jpg"),
+                    children: [
+                      Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundImage: _profileImage != null
+                                ? FileImage(_profileImage!)
+                                : const AssetImage(
+                                "assets/img/47115f390c01d9a90d4c76c8b34f8064.jpg")
+                            as ImageProvider,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: InkWell(
+                              onTap: _pickImage,
+                              child: const CircleAvatar(
+                                radius: 18,
+                                backgroundColor: Colors.orangeAccent,
+                                child: Icon(Icons.camera_alt,
+                                    size: 18, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 10),
-                      Text(
+                      const SizedBox(height: 10),
+                      const Text(
                         "Rudra Prasad",
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 4),
-                      Text(
-                        "7th Sem • Computer Science & Engg",
+                      const SizedBox(height: 4),
+                      const Text(
+                        "5th Sem • B.sc Computer Science",
                         style: TextStyle(color: Colors.black87, fontSize: 14),
                       ),
                     ],
@@ -58,48 +168,52 @@ class _profile_screenState extends State<profile_screen> {
 
                 const SizedBox(height: 30),
 
-                // ---- Personal Information ----
+                // ---- Editable Information ----
                 _InfoTile(
-                    icon: Icons.email,
-                    label: "Email",
-                    value: "rudra@example.com"),
+                  icon: Icons.email,
+                  label: "Email",
+                  value: email,
+                  onTap: () =>
+                      _editField("Email", email, (val) => email = val),
+                ),
                 _InfoTile(
-                    icon: Icons.phone,
-                    label: "Phone",
-                    value: "+91 9876543210"),
+                  icon: Icons.phone,
+                  label: "Phone",
+                  value: phone,
+                  onTap: () =>
+                      _editField("Phone", phone, (val) => phone = val),
+                ),
                 _InfoTile(
-                    icon: Icons.badge,
-                    label: "College ID",
-                    value: "20180123453"),
-                _InfoTile(
-                    icon: Icons.home,
-                    label: "Address",
-                    value: "Bhubaneswar, Odisha"),
-                _InfoTile(
-                    icon: Icons.person,
-                    label: "Personal Information",
-                    value: "View / Edit"),
-                _InfoTile(
-                    icon: Icons.help,
-                    label: "Help Center",
-                    value: "Get Support"),
-                _InfoTile(
-                    icon: Icons.privacy_tip_outlined,
-                    label: "Privacy Policy",
-                    value: "Trust Safety"),
+                  icon: Icons.home,
+                  label: "Address",
+                  value: address,
+                  onTap: () =>
+                      _editField("Address", address, (val) => address = val),
+                ),
 
-                // ✅ Logout with navigation
+                // ---- Non-editable Info ----
+                const _InfoTile(
+                  icon: Icons.badge,
+                  label: "College ID",
+                  value: "20180123453",
+                ),
+                const _InfoTile(
+                  icon: Icons.help,
+                  label: "Help Center",
+                  value: "Get Support",
+                ),
+                const _InfoTile(
+                  icon: Icons.privacy_tip_outlined,
+                  label: "Privacy Policy",
+                  value: "Trust Safety",
+                ),
+
+                // ✅ Logout with confirmation
                 _InfoTile(
                   icon: Icons.logout,
                   label: "Logout",
                   value: "",
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const login_screen()),
-                    );
-                  },
+                  onTap: _confirmLogout,
                 ),
               ],
             ),
@@ -111,37 +225,11 @@ class _profile_screenState extends State<profile_screen> {
 }
 
 // ---------------- REUSABLE WIDGETS ----------------
-class _SectionTitle extends StatelessWidget {
-  final String title;
-  const _SectionTitle({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: BoxDecoration(
-        color: Colors.blueAccent.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.blueAccent,
-        ),
-      ),
-    );
-  }
-}
-
 class _InfoTile extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
-  final VoidCallback? onTap; // ✅ added onTap
+  final VoidCallback? onTap;
 
   const _InfoTile({
     required this.icon,
@@ -162,7 +250,7 @@ class _InfoTile extends StatelessWidget {
         subtitle: Text(value),
         trailing:
         const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-        onTap: onTap, // ✅ now uses custom onTap
+        onTap: onTap,
       ),
     );
   }

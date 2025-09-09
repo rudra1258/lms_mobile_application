@@ -273,6 +273,7 @@ class _SearchBooksPageState extends State<SearchBooksPage> {
         ),
         backgroundColor: Colors.orange[50],
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -417,6 +418,7 @@ class _IssuedBooksPageState extends State<IssuedBooksPage> {
         ),
         backgroundColor: Colors.orange[50],
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),

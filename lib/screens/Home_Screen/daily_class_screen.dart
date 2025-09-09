@@ -40,51 +40,45 @@ class _daily_class_screenState extends State<daily_class_screen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      extendBodyBehindAppBar: true, // Image goes behind AppBar
+      // extendBodyBehindAppBar: true, // Image goes behind AppBar
 
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        title: Text.rich(
-          TextSpan(
-            text: "Your ",
-            style: TextStyle(color: Colors.black, fontSize: 20),
-            children: [
-              TextSpan(
-                text: "Classes",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          textAlign: TextAlign.center,
+        iconTheme: IconThemeData(
+            color: Colors.orange
         ),
+        title: Text(
+          'Your Classes',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Colors.orange,
+          ),
+        ),
+        backgroundColor: Colors.orange[50],
+        foregroundColor: Colors.white,
+        centerTitle: true,
       ),
 
       body: Stack(
         children: [
           // Background Image with opacity
-          Opacity(
-            opacity: 0.3,
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/img/Picsart_25-08-21_15-14-30-585.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
+          // Opacity(
+          //   opacity: 0.3,
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //       image: DecorationImage(
+          //         image: AssetImage("assets/img/Picsart_25-08-21_15-14-30-585.jpg"),
+          //         fit: BoxFit.cover,
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           // Foreground Content
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // space below AppBar
-              SizedBox(height: kToolbarHeight + 50),
+              SizedBox(height: kToolbarHeight + 30),
 
               HorizontalWeekCalendar(
                 borderRadius: BorderRadius.circular(10),

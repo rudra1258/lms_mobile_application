@@ -255,6 +255,7 @@ class CoursesPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.orange[50],
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -390,6 +391,7 @@ class ResultsPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.orange[50],
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -534,6 +536,7 @@ class ExamPage extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.orange[50],
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),

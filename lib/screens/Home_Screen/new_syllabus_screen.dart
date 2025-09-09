@@ -80,6 +80,7 @@ class _new_syllabus_screenState extends State<new_syllabus_screen> {
         ),
         backgroundColor: Colors.orange[50],
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),

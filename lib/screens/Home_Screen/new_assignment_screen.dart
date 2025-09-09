@@ -234,6 +234,7 @@ class ProjectScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.orange[50],
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -400,6 +401,7 @@ class AssignmentScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.orange[50],
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -549,6 +551,7 @@ class DueAssignmentScreen extends StatelessWidget {
         ),
         backgroundColor: Colors.orange[50],
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16),

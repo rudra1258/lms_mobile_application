@@ -56,6 +56,7 @@ class _notice_and_event_screenState extends State<notice_and_event_screen>
             ),
           ],
         ),
+        centerTitle: true,
       ),
       body: Column(
         children: [
