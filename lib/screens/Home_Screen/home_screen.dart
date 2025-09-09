@@ -70,7 +70,12 @@ class home_screen extends StatelessWidget {
                           const Text("20180123453",
                               style: TextStyle(color: Colors.black, fontSize: 13)),
                         ],
-                      )
+                      ),
+                      Spacer(),
+                      SizedBox(
+                        height: 100,
+                          width: 100,
+                          child: Image.asset("assets/img/logo/college_logo.png", ))
                     ],
                   ),
                 ),
