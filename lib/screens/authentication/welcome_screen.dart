@@ -13,23 +13,38 @@ class login_screen extends StatefulWidget {
 
 class _login_screenState extends State<login_screen> {
   // late VideoPlayerController _controller;
-  String? _errorMessage;
+  // String? _errorMessage;
 
-  @override
-  void initState() {
-    super.initState();
-    // _controller = VideoPlayerController.asset('assets/videos/welcome_video.mp4')
-    //   ..initialize().then((_) {
-    //     setState(() {}); // Update UI when video is initialized
-    //     _controller.play();
-    //     _controller.setLooping(true);
-    //   }).catchError((error) {
-    //     setState(() {
-    //       _errorMessage = error.toString();
-    //        print('Video initialization error: $error');
-    //     });
-    //   });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _initializeAudioSession();
+  //   _controller = VideoPlayerController.asset('assets/videos/welcome_video.mp4')
+  //     ..initialize().then((_) {
+  //       setState(() {}); // Update UI when video is initialized
+  //       _controller.play();
+  //       _controller.setLooping(true);
+  //     }).catchError((error) {
+  //       setState(() {
+  //         _errorMessage = error.toString();
+  //          print('Video initialization error: $error');
+  //       });
+  //     });
+  // }
+  //
+  // Future<void> _initializeAudioSession() async {
+  //   // Get the audio session
+  //   final session = await AudioSession.instance;
+  //   // Configure the session for media playback and mixing with other audio
+  //   await session.configure(AudioSessionConfiguration(
+  //     avAudioSessionCategory: AVAudioSessionCategory.playback,
+  //     avAudioSessionCategoryOptions:
+  //     AVAudioSessionCategoryOptions.mixWithOthers |
+  //     AVAudioSessionCategoryOptions.duckOthers,
+  //   ));
+  //   // Activate the audio session
+  //   await session.setActive(true);
+  // }
 
   // @override
   // void dispose() {

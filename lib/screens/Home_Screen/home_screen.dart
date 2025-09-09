@@ -5,6 +5,7 @@ import 'package:lms_app/screens/Home_Screen/daily_class_screen.dart';
 import 'package:lms_app/screens/Home_Screen/library_screen.dart';
 import 'package:lms_app/screens/Home_Screen/manage_leaves_screen.dart';
 import 'package:lms_app/screens/Home_Screen/new_academic_info_screen.dart';
+import 'package:lms_app/screens/Home_Screen/new_assignment_screen.dart';
 import 'package:lms_app/screens/Home_Screen/new_library_screen.dart';
 import 'package:lms_app/screens/Home_Screen/new_syllabus_screen.dart';
 import 'package:lms_app/screens/Home_Screen/notice_and_event_screen.dart';
@@ -69,7 +70,12 @@ class home_screen extends StatelessWidget {
                           const Text("20180123453",
                               style: TextStyle(color: Colors.black, fontSize: 13)),
                         ],
-                      )
+                      ),
+                      Spacer(),
+                      SizedBox(
+                        height: 100,
+                          width: 100,
+                          child: Image.asset("assets/img/logo/college_logo.png", ))
                     ],
                   ),
                 ),
@@ -98,7 +104,7 @@ class home_screen extends StatelessWidget {
                           title: "Assignments",
                           icon: Icons.assignment,
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => assignments_screen() ));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => new_assignment_screen() ));
                           },
                         ),
                         _DashboardCard(

@@ -60,34 +60,37 @@ class _alert_screenState extends State<alert_screen> {
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: notifications.length,
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Dismissible(
-                      key: Key(notifications[index]),
-                      direction: DismissDirection.endToStart,
-                      background: Container(
-                        color: Colors.red,
-                        alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: const Icon(Icons.delete, color: Colors.white),
-                      ),
-                      onDismissed: (direction) {
-                        setState(() {
-                          notifications.removeAt(index);
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Notification deleted")),
-                        );
-                      },
-                      child: Card(
-                        child: ListTile(
-                          leading:  Icon(Icons.notifications, color: Colors.orange[700],),
-                          title: Text(notifications[index]),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      Dismissible(
+                        key: Key(notifications[index]),
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: const Icon(Icons.delete, color: Colors.white),
+                        ),
+                        onDismissed: (direction) {
+                          setState(() {
+                            notifications.removeAt(index);
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Notification deleted")),
+                          );
+                        },
+                        child: Card(
+                          child: ListTile(
+                            leading:  Icon(Icons.notifications, color: Colors.orange[700],),
+                            title: Text(notifications[index]),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 5),// space between cards
-                  ],
+                      const SizedBox(height: 5),// space between cards
+                    ],
+                  ),
                 );
               },
             ),
