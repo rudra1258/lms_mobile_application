@@ -13,6 +13,26 @@ class _daily_class_screenState extends State<daily_class_screen> {
   bool isSunday = false;
 
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    print("_______________ date ${DateTime.now().weekday}");
+    if(DateTime.now().weekday == 7){
+      print("sunday");
+      setState(() {
+        isSunday = true;
+      });
+    }else{
+      print("other than sunday");
+      setState(() {
+        isSunday = false;
+      });
+    }
+  }
+
+
   final List<String> weekdays = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
 
   @override
@@ -93,17 +113,21 @@ class _daily_class_screenState extends State<daily_class_screen> {
                   setState(() {
                     print("Date selected: ${date.weekday}");
                     print("Date selected: ${date.weekday.runtimeType}");
+
                     if(date.weekday == 7){
                       print("sunday");
                       setState(() {
                         isSunday = true;
                       });
+                      print("is sunday - $isSunday");
                     }else{
                       print("other than sunday");
                       setState(() {
                         isSunday = false;
                       });
+                      print("is sunday - $isSunday");
                     }
+
                   });
                 },
               ),
@@ -170,7 +194,7 @@ class _daily_class_screenState extends State<daily_class_screen> {
 
               // Timeline / Routine
               
-              _buildPeriodSection(context)
+              isSunday?_buildHoliday(context):_buildPeriodSection(context)
               
             ],
           ),
